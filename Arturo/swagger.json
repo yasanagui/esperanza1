@@ -1,0 +1,75 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "This API includes all the available services related to videogames.",
+    "version" : "v0",
+    "title" : "Videogames"
+  },
+  "host" : "myApi.com",
+  "basePath" : "/videogames/v0",
+  "schemes" : [ "https", "http" ],
+  "paths" : {
+    "/videogames" : {
+      "get" : {
+        "tags" : [ "videogames store" ],
+        "summary" : "Finds Videogames.",
+        "description" : "Service for return the list of video games.",
+        "produces" : [ "application/json", "application/xml" ],
+        "parameters" : [ {
+          "name" : "price",
+          "in" : "query",
+          "description" : "Price related to the video game.",
+          "required" : false,
+          "type" : "number"
+        }, {
+          "name" : "console.id",
+          "in" : "query",
+          "description" : "Unique console identifier of the videogame.",
+          "required" : false,
+          "type" : "string",
+          "enum" : [ "XBOX_360", "XBOX_ONE", "PLAY3", "PLAY4" ]
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK.",
+            "schema" : {
+              "properties" : {
+                "data" : {
+                  "$ref" : "#/definitions/Videogames"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "Videogames" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/definitions/Videogames_inner"
+      }
+    },
+    "Videogames_inner" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "example" : "888728725",
+          "description" : "Unique videogame identifier."
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "God of War.",
+          "description" : "Name of the videogame."
+        },
+        "price" : {
+          "type" : "number",
+          "example" : 678.99,
+          "description" : "Price of the videogame."
+        }
+      }
+    }
+  }
+}
